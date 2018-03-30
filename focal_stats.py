@@ -1,7 +1,7 @@
 import os
 from PIL import Image
 import matplotlib.pyplot as plt
-from numpy import asarray
+from numpy import asarray, logspace, log10
 
 path = 'D:\\Documents\\Photos\\2018'
 CAMERA_TYPE = 'pentax' # lowercase
@@ -17,10 +17,11 @@ for root, dirs, files in os.walk(path):
             filename = os.path.join(root, file)
 
             try:
-                img = Image.open(filename, "r")
+                img = Image.open(filename, 'r')
                 exif_data = img._getexif()
             except:
                 img.close()
+                print('Error opening image {}, exiting'.format(filename))
                 pass
             img.close()
 
@@ -36,6 +37,7 @@ for root, dirs, files in os.walk(path):
                         t.append(time[0]/float(time[1]))
                         focus.append(fd[0]/float(fd[1]))
                 except KeyError:
+                    print('Error while reading EXIF data in image {}'.format(filename))
                     pass
 
 
@@ -43,19 +45,20 @@ print('Number of photos: {}'.format(len(t)))
 
 # x = np.asarray([f for f in focus if f <= 55])
 plt.figure()
-plt.hist(asarray(focus), normed=False, bins=20)
+plt.hist(asarray(focus), normed=False, bins=30)
 plt.ylabel('Number of photos');
 plt.xlabel('Focal distance, mm');
 plt.savefig('focal_distance.png')
 
 plt.figure()
-plt.hist(asarray(f), normed=False, bins=20)
+plt.hist(asarray(f), normed=False, bins=30)
 plt.ylabel('Number of photos');
 plt.xlabel('f number, mm');
 plt.savefig('f_number.png')
 
 plt.figure()
-plt.hist(asarray(t), normed=False, bins=20)
+plt.hist(asarray(t), normed=False, bins=logspace(log10(min(t)), log10(max(t)), 30))
 plt.ylabel('Number of photos');
 plt.xlabel('Shutter speed, s');
+plt.gca().set_xscale("log")
 plt.savefig('shutter_speed.png')
