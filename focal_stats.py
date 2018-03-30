@@ -52,21 +52,21 @@ def process_images(path, camera_type):
     if focus:
         # x = np.asarray([f for f in focus if f <= 55])
         plt.figure()
-        plt.hist(asarray(focus), normed=False, bins=30)
+        plt.hist(asarray(focus), bins=30)
         plt.ylabel('Number of photos');
         plt.xlabel('Focal distance, mm');
         plt.savefig('focal_distance.png')
 
     if f:
         plt.figure()
-        plt.hist(asarray(f), normed=False, bins=30)
+        plt.hist(asarray(f), bins=30)
         plt.ylabel('Number of photos');
-        plt.xlabel('f number, mm');
+        plt.xlabel('f number');
         plt.savefig('f_number.png')
 
     if t:
         plt.figure()
-        plt.hist(asarray(t), normed=False, bins=logspace(log10(min(t)), log10(max(t)), 30))
+        plt.hist(asarray(t), bins=logspace(log10(min(t))-1, log10(max(t)), 30))
         plt.ylabel('Number of photos');
         plt.xlabel('Shutter speed, s');
         plt.gca().set_xscale("log")
