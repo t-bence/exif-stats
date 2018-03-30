@@ -3,17 +3,17 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from numpy import asarray
 
+path = 'D:\Documents\Photos\2018'
+CAMERA_TYPE = 'pentax' # lowercase
+
 f = []
 t = []
 focus = []
 
-for root, dirs, files in os.walk("D:\Documents\Photos"):
-# root = "D:\Documents\Photos\\2017\Elso_kepek"
+for root, dirs, files in os.walk(path):
     for file in files:
 
-        # print name
         if file.lower().endswith('.jpg'):
-
             filename = os.path.join(root, file)
 
             try:
@@ -28,7 +28,7 @@ for root, dirs, files in os.walk("D:\Documents\Photos"):
                 try:
                     name = exif_data[271]
 
-                    if 'PENTAX' in name:
+                    if CAMERA_TYPE in name.lower():
                         time = exif_data[0x829A]
                         stop = exif_data[0x829D]
                         fd = exif_data[37386]
@@ -39,7 +39,7 @@ for root, dirs, files in os.walk("D:\Documents\Photos"):
                     pass
 
 
-print len(t)
+print('Number of photos: %s', len(t))
 
 # x = np.asarray([f for f in focus if f <= 55])
 x = np.asarray(focus)
