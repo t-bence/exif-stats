@@ -42,10 +42,20 @@ for root, dirs, files in os.walk(path):
 print('Number of photos: {}'.format(len(t)))
 
 # x = np.asarray([f for f in focus if f <= 55])
-x = asarray(focus)
-plt.hist(x, normed=False, bins=20)
+plt.figure()
+plt.hist(asarray(focus), normed=False, bins=20)
 plt.ylabel('Number of photos');
 plt.xlabel('Focal distance, mm');
-plt.savefig('focal_distances.png')
+plt.savefig('focal_distance.png')
 
-            
+plt.figure()
+plt.hist(asarray(f), normed=False, bins=20)
+plt.ylabel('Number of photos');
+plt.xlabel('f number, mm');
+plt.savefig('f_number.png')
+
+plt.figure()
+plt.hist(asarray(t), normed=False, bins=20)
+plt.ylabel('Number of photos');
+plt.xlabel('Shutter speed, s');
+plt.savefig('shutter_speed.png')
