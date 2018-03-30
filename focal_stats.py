@@ -3,7 +3,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from numpy import asarray
 
-path = 'D:\Documents\Photos\2018'
+path = 'D:\\Documents\\Photos\\2018'
 CAMERA_TYPE = 'pentax' # lowercase
 
 f = []
@@ -39,10 +39,10 @@ for root, dirs, files in os.walk(path):
                     pass
 
 
-print('Number of photos: %s', len(t))
+print('Number of photos: {}'.format(len(t)))
 
 # x = np.asarray([f for f in focus if f <= 55])
-x = np.asarray(focus)
+x = asarray(focus)
 plt.hist(x, normed=False, bins=20)
 plt.ylabel('Number of photos');
 plt.xlabel('Focal distance, mm');
